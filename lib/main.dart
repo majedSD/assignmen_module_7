@@ -53,7 +53,7 @@ class HomePageView extends State<HomePage>{
                               });
                               if(count[index]==5){
                                 showDialog(context: context,
-                                    builder: (context){
+                                       builder: (context){
                                       return AlertDialog(
                                         title: Text('Congratulations!'),
                                         content: Text('You\'ve bought 5 Product ${index+1}!'),
