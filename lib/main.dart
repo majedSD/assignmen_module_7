@@ -1,7 +1,11 @@
+/**
+ *
+ * ----------------Module-7-Assignment----------------
+ * ----------------Majedul Islam----------------------
+ *
+ */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-///This programme how to creat a stateful widget and how it work
 void main(){
   runApp(const MyApp());
 }
@@ -11,6 +15,7 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
   }
@@ -29,6 +34,7 @@ class HomePageView extends State<HomePage>{
     '\$90.00', '\$10.00','\$20.00','\$45.00',
   ];
    var count=[0,0,0,0,0,0,0,0,0,0,0,0];
+   int product=0;
    @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +55,9 @@ class HomePageView extends State<HomePage>{
                           child: Text('Buy Now'),
                           onPressed: (){
                               setState(() {
+                                if(count[index]==0){
+                                  product+=1;
+                                }
                                 count[index]+=1;
                               });
                               if(count[index]==5){
@@ -71,7 +80,40 @@ class HomePageView extends State<HomePage>{
                 );
           }
       ),
-           );
+            floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Cart(product: product),
+            ),
+          );
+        },
+        child: Icon(Icons.add_shopping_cart),
+      ),
+    );
   }
 
+}
+class Cart extends StatelessWidget{
+  int product;
+   Cart({super.key,required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cart'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Total Product Bought: $product'),
+          ],
+        ),
+      ),
+    );
+  }
 }
